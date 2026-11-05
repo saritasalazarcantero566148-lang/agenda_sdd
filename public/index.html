@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#17151d">
+  <title>Agenda | Tareas y compromisos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/aurora.css">
+</head>
+<body>
+  <div class="aurora-orb orb-one" aria-hidden="true"></div>
+  <div class="aurora-orb orb-two" aria-hidden="true"></div>
+  <div class="aurora-orb orb-three" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="container-fluid dashboard-shell d-flex justify-content-between align-items-center gap-3">
+      <a class="brand d-flex align-items-center gap-3 text-decoration-none" href="/" aria-label="Agenda, inicio">
+        <span class="brand-mark" aria-hidden="true">A</span>
+        <span>
+          <strong>agenda<span class="brand-period">.</span></strong>
+          <small>ESPACIO PERSONAL</small>
+        </span>
+      </a>
+      <div class="topbar-date text-end">
+        <span class="status-pulse"></span>
+        <span>Tu espacio, en equilibrio</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container-fluid dashboard-shell py-4 py-xl-5">
+    <section class="welcome-row d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+      <div>
+        <p class="eyebrow mb-2">PANEL DE CONTROL</p>
+        <h1 class="mb-2">Buenos días, <span class="gradient-text">vamos paso a paso.</span></h1>
+        <p class="welcome-copy mb-0">Organiza lo importante y deja espacio para lo que viene.</p>
+      </div>
+      <div class="date-chip"><span aria-hidden="true">✦</span> Mi agenda personal</div>
+    </section>
+
+    <div class="row g-3 g-xl-4 dashboard-grid">
+      <aside class="col-12 col-md-4 col-xl-2" aria-label="Filtros de agenda">
+        <section class="glass-panel filter-panel h-100">
+          <div class="panel-heading">
+            <span class="panel-icon">⌘</span>
+            <div><p class="eyebrow mb-1">NAVEGACIÓN</p><h2 class="h6 mb-0">Filtros rápidos</h2></div>
+          </div>
+
+          <div class="filter-group">
+            <label class="filter-label" for="filterTaskStatus">Estado de tareas</label>
+            <select class="form-select form-select-sm" id="filterTaskStatus">
+              <option value="TODOS">Todos los estados</option>
+              <option value="PENDIENTE">Pendientes</option>
+              <option value="EN_PROCESO">En proceso</option>
+              <option value="COMPLETADA">Completadas</option>
+              <option value="CANCELADA">Canceladas</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filterTaskPriority">Prioridad</label>
+            <select class="form-select form-select-sm" id="filterTaskPriority">
+              <option value="TODOS">Todas las prioridades</option>
+              <option value="CRITICA">Crítica</option>
+              <option value="ALTA">Alta</option>
+              <option value="MEDIA">Media</option>
+              <option value="BAJA">Baja</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label class="filter-label" for="filterCommitmentStatus">Compromisos</label>
+            <select class="form-select form-select-sm" id="filterCommitmentStatus">
+              <option value="TODOS">Todos los estados</option>
+              <option value="PROGRAMADO">Programados</option>
+              <option value="CONFIRMADO">Confirmados</option>
+              <option value="CANCELADO">Cancelados</option>
+            </select>
+          </div>
+
+          <div class="filter-note mt-4">
+            <span class="filter-note-icon">✧</span>
+            <p class="mb-0">Un pequeño avance también cuenta.</p>
+          </div>
+        </section>
+      </aside>
+
+      <section class="col-12 col-md-8 col-xl-7" aria-label="Resumen de tareas y compromisos">
+        <div class="row g-3 mb-3">
+          <div class="col-6 col-lg-3">
+            <article class="glass-panel metric-card">
+              <span class="metric-label">Tareas</span>
+              <strong id="metricTotalTasks">0</strong>
+              <span class="metric-caption">en tu lista</span>
+            </article>
+          </div>
+          <div class="col-6 col-lg-3">
+            <article class="glass-panel metric-card">
+              <span class="metric-label">Vencidas</span>
+              <strong class="metric-warn" id="metricOverdueTasks">0</strong>
+              <span class="metric-caption">por revisar</span>
+            </article>
+          </div>
+          <div class="col-6 col-lg-3">
+            <article class="glass-panel metric-card">
+              <span class="metric-label">Compromisos</span>
+              <strong id="metricActiveCommitments">0</strong>
+              <span class="metric-caption">activos</span>
+            </article>
+          </div>
+          <div class="col-6 col-lg-3">
+            <article class="glass-panel metric-card">
+              <span class="metric-label">Completadas</span>
+              <strong class="metric-good" id="metricCompletedTasks">0</strong>
+              <span class="metric-caption">buen trabajo</span>
+            </article>
+          </div>
+        </div>
+
+        <section class="glass-panel feed-panel mb-3">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow mb-1">ENFOQUE</p>
+              <h2 class="h5 mb-0">Mis tareas</h2>
+            </div>
+            <span class="section-sparkle" aria-hidden="true">✦</span>
+          </div>
+          <div id="tasksContainer" class="row g-3 task-feed"></div>
+        </section>
+
+        <section class="glass-panel feed-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow mb-1">LO QUE SIGUE</p>
+              <h2 class="h5 mb-0">Compromisos</h2>
+            </div>
+            <span class="section-sparkle" aria-hidden="true">◷</span>
+          </div>
+          <div id="commitmentsContainer" class="timeline-feed"></div>
+        </section>
+      </section>
+
+      <aside class="col-12 col-xl-3" aria-label="Creación rápida">
+        <section class="glass-panel quick-panel">
+          <div class="quick-heading">
+            <div>
+              <p class="eyebrow mb-1">CAPTURA RÁPIDA</p>
+              <h2 class="h5 mb-0">Haz espacio para lo nuevo</h2>
+            </div>
+            <button class="collapse-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#quickCreateBody" aria-expanded="true" aria-controls="quickCreateBody" aria-label="Mostrar u ocultar formulario">−</button>
+          </div>
+
+          <div class="collapse show" id="quickCreateBody">
+            <div class="form-switcher nav nav-pills" role="tablist" aria-label="Tipo de registro">
+              <button class="nav-link active" type="button" data-form-target="task" aria-pressed="true">Tarea</button>
+              <button class="nav-link" type="button" data-form-target="commitment" aria-pressed="false">Compromiso</button>
+            </div>
+
+            <form id="formNuevaTarea" class="quick-form">
+              <div class="field-heading">
+                <label class="form-label" for="taskTitle">Título <span class="required-mark">*</span></label>
+                <span class="char-counter" id="taskTitleCounter">0 / 100</span>
+              </div>
+              <input type="text" class="form-control" id="taskTitle" maxlength="100" required placeholder="¿Qué necesitas hacer?">
+
+              <div class="field-heading mt-3">
+                <label class="form-label" for="taskDesc">Descripción</label>
+                <span class="char-counter" id="taskDescCounter">0 / 500</span>
+              </div>
+              <textarea class="form-control" id="taskDesc" rows="3" maxlength="500" placeholder="Agrega algunos detalles..."></textarea>
+
+              <label class="form-label mt-3" for="taskDueDate">Fecha de vencimiento <span class="required-mark">*</span></label>
+              <input type="datetime-local" class="form-control" id="taskDueDate" required>
+
+              <div class="row g-2 mt-1">
+                <div class="col-6">
+                  <label class="form-label" for="taskPriority">Prioridad</label>
+                  <select class="form-select" id="taskPriority">
+                    <option value="BAJA">Baja</option>
+                    <option value="MEDIA" selected>Media</option>
+                    <option value="ALTA">Alta</option>
+                    <option value="CRITICA">Crítica</option>
+                  </select>
+                </div>
+                <div class="col-6">
+                  <label class="form-label" for="taskTags">Etiquetas</label>
+                  <input type="text" class="form-control" id="taskTags" placeholder="Trabajo, personal">
+                </div>
+              </div>
+              <p class="form-hint mt-2 mb-3">El vencimiento no puede estar en el pasado.</p>
+              <button type="submit" class="btn btn-glow w-100">Guardar tarea <span aria-hidden="true">↗</span></button>
+            </form>
+
+            <form id="formNuevoCompromiso" class="quick-form d-none">
+              <div class="field-heading">
+                <label class="form-label" for="commTitle">Título <span class="required-mark">*</span></label>
+                <span class="char-counter" id="commTitleCounter">0 / 100</span>
+              </div>
+              <input type="text" class="form-control" id="commTitle" maxlength="100" required placeholder="Nombre del compromiso">
+
+              <label class="form-label mt-3" for="commDesc">Descripción</label>
+              <textarea class="form-control" id="commDesc" rows="2" placeholder="Detalles opcionales..."></textarea>
+
+              <div class="row g-2 mt-1">
+                <div class="col-6">
+                  <label class="form-label" for="commStartDate">Inicio <span class="required-mark">*</span></label>
+                  <input type="datetime-local" class="form-control" id="commStartDate" required>
+                </div>
+                <div class="col-6">
+                  <label class="form-label" for="commEndDate">Fin <span class="required-mark">*</span></label>
+                  <input type="datetime-local" class="form-control" id="commEndDate" required>
+                </div>
+              </div>
+              <div id="durationBadge" class="form-hint validation-hint mt-2" aria-live="polite">La fecha de fin debe ser posterior al inicio y durar al menos 15 minutos.</div>
+
+              <label class="form-label mt-3" for="commLocation">Ubicación / enlace</label>
+              <input type="text" class="form-control" id="commLocation" placeholder="Sala o enlace virtual">
+
+              <div class="row g-2 mt-1">
+                <div class="col-7">
+                  <label class="form-label" for="commReminder">Recordatorio (min)</label>
+                  <input type="number" class="form-control" id="commReminder" value="15" min="0">
+                </div>
+                <div class="col-5">
+                  <label class="form-label" for="commStatus">Estado</label>
+                  <select class="form-select" id="commStatus">
+                    <option value="PROGRAMADO">Programado</option>
+                    <option value="CONFIRMADO">Confirmado</option>
+                    <option value="CANCELADO">Cancelado</option>
+                  </select>
+                </div>
+              </div>
+
+              <label class="form-label mt-3" for="commParticipants">Participantes <span class="required-mark">*</span></label>
+              <input type="text" class="form-control" id="commParticipants" required placeholder="nombre@correo.com">
+              <p class="form-hint mt-2 mb-3">Correos separados por coma. Se requiere al menos uno válido.</p>
+              <div id="conflictAlert" class="alert alert-warning py-2 small d-none" role="alert">Puede existir un solapamiento con otro compromiso activo.</div>
+              <button type="submit" class="btn btn-glow w-100">Agendar compromiso <span aria-hidden="true">↗</span></button>
+            </form>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="appToast" class="toast align-items-center border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage">Acción completada.</div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
